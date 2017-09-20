@@ -1,33 +1,94 @@
 <html>
+
 <head>
-	<link rel=stylesheet type=text/css href="{{ url_for('static', filename='styles.css') }}">
-	</head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Home</title>
+  <link href="{{ url_for('static', filename='css/custom.css')}}" rel="stylesheet" />
+  <link href="{{ url_for('static', filename='css/font-awesome.css')}}" rel="stylesheet" />
+  <link href="{{ url_for('static', filename='css/bootstrap.css')}}" rel="stylesheet" />
+  <!-- GOOGLE FONTS-->
+  <link href='http://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css' />
+</head>
+
 <body>
+  <div id="wrapper">
+    <div class="navbar navbar-inverse navbar-fixed-top">
+      <div class="adjust-nav">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".sidebar-collapse">
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+          <a class="navbar-brand" href="{{url_for('catalog')}}"><i class="fa fa-square-o "></i>&nbsp;MiniPedia</a>
+        </div>
+        <div class="navbar-collapse collapse">
+          {% if 'username' in session %}
+          <ul class="nav navbar-nav navbar-right">
+            <li><a href="{{url_for('gdisconnect')}}">Log Out</a></li>
+          </ul>
+          {% else %}
+          <ul class="nav navbar-nav navbar-right">
+            <li><a href="{{url_for('showLogin')}}">Log In</a></li>
+          </ul>
+          {% endif %}
+        </div>
 
-<h1>Title</h1>
+      </div>
+    </div>
+    <!-- /. NAV TOP  -->
+    <nav class="navbar-default navbar-side" role="navigation">
+      <div class="sidebar-collapse">
+        <ul class="nav" id="main-menu">
+          <li>
+            <a href="{{url_for('catalog')}}"><i class="fa fa-desktop "></i>Dashboard</a>
+          </li>
+          {% for i in categories %}
+          <li>
+            <a href="{{url_for('categoryItems', name=i.name)}}"><i class="fa fa-folder-o" aria-hidden="true"></i>{{i.name}}</a>
+          </li>
+          {% endfor %}
+        </ul>
 
+      </div>
+      {% if 'username' in session %}
+      <div id="button-place">
+        <a href="{{url_for('newCategory')}}"><button type="button" class="btn btn-primary">New Category</button></a>
+      </div>
+      {% endif %}
 
-
-<div>
-{% for i in categories %}
-<p>{{i.name}}</p>
-{% endfor %}
-</div>
-</br>
-</br>
-</br>
-{% for i in items %}
-
-<div>
-
-<p>{{i.name}}</p>
-
-<p>{{i.description}}</p>
-
-</div>
-
-
-{% endfor %}
+    </nav>
+    <!-- /. NAV SIDE  -->
+    <div id="page-wrapper">
+      <div id="page-inner">
+        <div class="row">
+          <div class="col-md-12">
+            <h2>Recent added topics</h2>
+          </div>
+        </div>
+        <!-- /. ROW  -->
+        <hr />
+        <div class="col-md-8">
+          {% for i in items %}
+          <div class="panel panel-default">
+            <div class="panel-body">
+              <a href="{{url_for('showItem', category_id=i.category_id, itemname=i.name)}}">{{i.name}}</a>
+            </div>
+          </div>
+          {% endfor %}
+        </div>
+        <!-- /. ROW  -->
+      </div>
+      <!-- /. PAGE INNER  -->
+    </div>
+    <!-- /. PAGE WRAPPER  -->
+  </div>
+  <!-- /. WRAPPER  -->
+  <!-- SCRIPTS -AT THE BOTOM TO REDUCE THE LOAD TIME-->
+  <!-- JQUERY SCRIPTS -->
+  <script src="{{ url_for('static', filename='js/jquery-1.10.2.js')}}"></script>
+  <script src="{{ url_for('static', filename='js/bootstrap.min.js')}}"></script>
 </body>
 
 </html>

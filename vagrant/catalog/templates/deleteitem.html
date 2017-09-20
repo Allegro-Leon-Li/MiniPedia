@@ -1,21 +1,62 @@
 <html>
+
 <head>
-	<link rel=stylesheet type=text/css href="{{ url_for('static', filename='styles.css') }}">
-	</head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Home</title>
+  <link href="{{ url_for('static', filename='css/custom.css')}}" rel="stylesheet" />
+  <link href="{{ url_for('static', filename='css/font-awesome.css')}}" rel="stylesheet" />
+  <link href="{{ url_for('static', filename='css/bootstrap.css')}}" rel="stylesheet" />
+  <!-- GOOGLE FONTS-->
+  <link href='http://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css' />
+</head>
+
 <body>
-<h1>Delete Item</h1>
-<p> Are you sure you want to delete {{item.name}}? </p>
+  <div id="wrapper">
+    <div class="navbar navbar-inverse navbar-fixed-top">
+      <div class="adjust-nav">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".sidebar-collapse">
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+          <a class="navbar-brand" href="{{url_for('catalog')}}"><i class="fa fa-square-o "></i>&nbsp;MiniPedia</a>
+        </div>
+        <div class="navbar-collapse collapse">
+          {% if 'username' in session %}
+          <ul class="nav navbar-nav navbar-right">
+            <li><a href="{{url_for('gdisconnect')}}">Log Out</a></li>
+          </ul>
+          {% else %}
+          <ul class="nav navbar-nav navbar-right">
+            <li><a href="{{url_for('showLogin')}}">Log In</a></li>
+          </ul>
+          {% endif %}
+        </div>
 
-<form action="{{ url_for('deleteCategoryItem', item_name=item.name)}}" method = 'post'>
+      </div>
+    </div>
+    <!-- <div id="page-wrapper" > -->
+    <div id="page-inner">
+      <h1>Delete Item</h1>
 
-<input type='submit', value = 'Delete'>
+      <p> Are you sure you want to delete {{item.name}}? </p>
+
+      <form action="{{ url_for('deleteCategoryItem', item_name=item.name)}}" method='post'>
+
+        <input type='submit' , value='Delete'>
 
 
 
 
-</form>
+      </form>
+      <a href='{{url_for(' catalog ')}}'>Cancel</a>
+    </div>
+    <!-- </div> -->
+  </div>
 
-<a href= '{{url_for('catalog')}}'>Cancel</a>
+
 </body>
 
 </html>

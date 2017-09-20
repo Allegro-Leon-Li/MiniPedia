@@ -37,56 +37,24 @@
 
       </div>
     </div>
+    <!-- <div id="page-wrapper" > -->
+    <div id="page-inner">
+      <h1> New Menu Item </h1>
 
-    <!-- /. NAV TOP  -->
-    <nav class="navbar-default navbar-side" role="navigation">
-      <div class="sidebar-collapse">
-        <ul class="nav" id="main-menu">
-          <li>
-            <a href="{{url_for('catalog')}}"><i class="fa fa-desktop "></i>Dashboard</a>
-          </li>
-          {% for i in categories %}
-          <li>
-            {% if i.id==current.id%}
-            <a href="{{url_for('categoryItems', name=i.name)}}"><i class="fa fa-folder" aria-hidden="true"></i>{{i.name}}</a> {% else %}
-            <a href="{{url_for('categoryItems', name=i.name)}}"><i class="fa fa-folder-o" aria-hidden="true"></i>{{i.name}}</a> {% endif %}
-          </li>
-          {% endfor %}
-        </ul>
+      <form action="{{url_for('newCategory')}}" method='POST'>
 
-      </div>
+        <p>Name:</p>
 
-    </nav>
+        <input type='text' size='30' name='name'>
 
-    <div id="page-wrapper">
-      <div id="page-inner">
-        <div class="row">
-          <div class="col-md-12">
-            <h2>{{current.name}}</h2>
-          </div>
-        </div>
-        <!-- /. ROW  -->
-        <hr />
-        <div class="col-md-8">
-          {% for i in items %}
-          <div class="panel panel-default">
-            <div class="panel-body">
-              <a href="{{url_for('showItem', category_id=i.category_id, itemname=i.name)}}">{{i.name}}</a>
-            </div>
-          </div>
-          {% endfor %}
-        </div>
-        {% if 'username' in session %}
-        <div class="col-md-8">
-          <a href="{{url_for('newCategoryItem', category_id=current.id)}}"><button type="button" class="btn btn-primary">Add an item</button></a>
-        </div>
-        {%endif%}
-      </div>
-      <!-- /. PAGE INNER  -->
+        <input type='submit' value='Create'>
+
+      </form>
+      <a href='{{url_for(' catalog ')}}'>Cancel</a>
     </div>
-
-
+    <!-- </div> -->
   </div>
+
 
 
 </body>
