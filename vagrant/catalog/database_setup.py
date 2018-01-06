@@ -38,7 +38,7 @@ class CategoryItem(Base):
 
     id = Column(Integer, primary_key=True)
     name = Column(String(80), nullable=False)
-    description = Column(String(250))
+    description = Column(String(9000))
     category_id = Column(Integer, ForeignKey('category.id'))
     category = relationship(Category)
     user_id = Column(Integer, ForeignKey('user.id'))
@@ -56,7 +56,7 @@ class CategoryItem(Base):
         }
 
 
-engine = create_engine('sqlite:///catalogwithuser.db')
-
+# engine = create_engine('sqlite:///catalogwithuser.db')
+engine = create_engine('postgresql:///catalogwithuser')
 
 Base.metadata.create_all(engine)

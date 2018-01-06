@@ -18,7 +18,8 @@ CLIENT_ID = json.loads(
     open('client_secrets.json', 'r').read())['web']['client_id']
 APPLICATION_NAME = "Udacity Project"
 
-engine = create_engine('sqlite:///catalogwithuser.db')
+# engine = create_engine('sqlite:///catalogwithuser.db')
+engine = create_engine('postgresql:///catalogwithuser')
 Base.metadata.bind = engine
 
 DBSession = sessionmaker(bind=engine)
